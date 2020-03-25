@@ -10,9 +10,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class VideoSerializer(serializers.ModelSerializer):
     category = CategorySerializer(many=False, read_only=True)
+    category_id = serializers.IntegerField(write_only=True)
 
     class Meta:
         model = Video
-        fields = ('title', 'category', 'description', 'thumbnail', 'url', 'rating', 'createdAt')
-
-
+        fields = '__all__'
