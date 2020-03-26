@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app.models import Video, Category, Article
+from app.models import Video, Category, Article, Organization
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -23,4 +23,10 @@ class ArticleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
+        fields = '__all__'
+
+
+class OrganizationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organization
         fields = '__all__'

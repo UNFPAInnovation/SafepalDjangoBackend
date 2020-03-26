@@ -33,3 +33,22 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class District(models.Model):
+    name = models.CharField(max_length=300)
+
+
+class Organization(models.Model):
+    facility_name = models.CharField(max_length=400)
+    phone_number = models.CharField(max_length=400)
+    address = models.ForeignKey(District, on_delete=models.DO_NOTHING)
+    open_hour = models.CharField(max_length=100)
+    close_hour = models.CharField(max_length=100)
+    latitude = models.CharField(max_length=100)
+    longitude = models.CharField(max_length=100)
+    link = models.CharField(max_length=400)
+    createdAt = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.facility_name

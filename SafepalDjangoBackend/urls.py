@@ -3,9 +3,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_swagger.views import get_swagger_view
 
-from app.views import VideosView, ArticlesView
+from app.views import VideosView, ArticlesView, OrganizationView
 
-schema_view = get_swagger_view(title='GetIN Django API')
+schema_view = get_swagger_view(title='Safepal Django API')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,4 +16,5 @@ urlpatterns = [
     path(r'auth/', include('djoser.urls.authtoken')),
     path(r'api/v1/videos', VideosView.as_view(), name='videos'),
     path(r'api/v1/articles', ArticlesView.as_view(), name='article'),
+    path(r'api/v1/organization', OrganizationView.as_view(), name='organization'),
 ]
