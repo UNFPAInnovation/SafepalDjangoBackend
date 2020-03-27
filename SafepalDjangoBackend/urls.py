@@ -14,7 +14,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'auth/', include('djoser.urls.base')),
     path(r'auth/', include('djoser.urls.authtoken')),
-    path(r'api/v1/videos', VideosView.as_view(), name='videos'),
+    path(r'api/v1/videos', VideosView.as_view(), name='video'),
     path(r'api/v1/articles', ArticlesView.as_view(), name='article'),
-    path(r'api/v1/organization', OrganizationView.as_view(), name='organization'),
+    path(r'api/v1/organizations', OrganizationView.as_view(), name='organization'),
 ]
