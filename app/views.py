@@ -22,7 +22,7 @@ class ArticlesView(ListCreateAPIView):
 
 class OrganizationView(ListCreateAPIView):
     """
-        Lists and creates Organization.
-        """
+    Lists and creates Organization.
+    """
     serializer_class = OrganizationSerializer
     queryset = Organization.objects.all()

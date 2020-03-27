@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app.models import Video, Category, Article, Organization
+from app.models import Video, Category, Article, Organization, District
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -26,7 +26,16 @@ class ArticleSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class DistrictSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = District
+        fields = ('name',)
+
+
 class OrganizationSerializer(serializers.ModelSerializer):
+    district = DistrictSerializer(many=False, read_only=True)
+    district_id = serializers.IntegerField(write_only=True)
+
     class Meta:
         model = Organization
         fields = '__all__'
