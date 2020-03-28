@@ -50,8 +50,8 @@ class Organization(models.Model):
     address = models.CharField(max_length=300)
     open_hour = models.CharField(max_length=100)
     close_hour = models.CharField(max_length=100)
-    latitude = models.CharField(max_length=100)
-    longitude = models.CharField(max_length=100)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, default=0.3476)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, default=32.5825)
     link = models.CharField(max_length=400)
     created_at = models.DateTimeField(auto_now_add=True)
 
