@@ -16,7 +16,7 @@ class Video(models.Model):
     url = models.CharField(max_length=600)
     rating = models.IntegerField(default=5)
     duration = models.IntegerField(default=3)
-    createdAt = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
@@ -29,7 +29,7 @@ class Article(models.Model):
     questions = models.TextField()
     thumbnail = models.CharField(max_length=600)
     rating = models.IntegerField(default=5)
-    createdAt = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
@@ -37,6 +37,7 @@ class Article(models.Model):
 
 class District(models.Model):
     name = models.CharField(max_length=300)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -45,13 +46,14 @@ class District(models.Model):
 class Organization(models.Model):
     facility_name = models.CharField(max_length=400)
     phone_number = models.CharField(max_length=400)
-    address = models.ForeignKey(District, on_delete=models.DO_NOTHING)
+    district = models.ForeignKey(District, on_delete=models.DO_NOTHING)
+    address = models.CharField(max_length=300)
     open_hour = models.CharField(max_length=100)
     close_hour = models.CharField(max_length=100)
     latitude = models.CharField(max_length=100)
     longitude = models.CharField(max_length=100)
     link = models.CharField(max_length=400)
-    createdAt = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.facility_name
