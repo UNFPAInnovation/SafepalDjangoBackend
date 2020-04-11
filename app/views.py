@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView
-from app.models import Video, Article, Organization
-from app.serializers import VideoSerializer, ArticleSerializer, OrganizationSerializer
+from app.models import Video, Article, Organization, District
+from app.serializers import VideoSerializer, ArticleSerializer, OrganizationSerializer, DistrictSerializer
 
 
 class VideosView(ListCreateAPIView):
@@ -26,3 +26,11 @@ class OrganizationView(ListCreateAPIView):
     """
     serializer_class = OrganizationSerializer
     queryset = Organization.objects.all()
+
+
+class DistrictView(ListCreateAPIView):
+    """
+    Lists and creates Districts.
+    """
+    serializer_class = DistrictSerializer
+    queryset = District.objects.all()

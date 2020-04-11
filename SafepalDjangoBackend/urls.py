@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_swagger.views import get_swagger_view
 
-from app.views import VideosView, ArticlesView, OrganizationView
+from app.views import VideosView, ArticlesView, OrganizationView, DistrictView
 
 schema_view = get_swagger_view(title='Safepal Django API')
 
@@ -17,4 +17,5 @@ urlpatterns = [
     path(r'api/v1/videos', VideosView.as_view(), name='video'),
     path(r'api/v1/articles', ArticlesView.as_view(), name='article'),
     path(r'api/v1/organizations', OrganizationView.as_view(), name='organization'),
+    path(r'api/v1/districts', DistrictView.as_view(), name='district'),
 ]
