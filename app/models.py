@@ -1,5 +1,6 @@
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-
+from django.utils.translation import gettext_lazy as _
 
 class Category(models.Model):
     name = models.CharField(max_length=400)
@@ -57,3 +58,24 @@ class Organization(models.Model):
 
     def __str__(self):
         return self.facility_name
+
+
+class Quiz(models.Model):
+    title = models.CharField(max_length=400)
+    description = models.TextField()
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Question(models.Model):
+    class AnswerOptions(models.TextChoices):
+        YES = 'YES', _('Yes')
+        NO = 'NO', _('No')
+        SOMETIMES = 'SOMETIMES', _('Sometimes')
+
+    content = models.TextField()
+    answer = models.CharField(max_length=200, choices=AnswerOptions.choices, default=AnswerOptions.YES)
+    quiz = models.ForeignKey(Quiz, on_delete=models.DO_NOTHING)
+    difficulty = models.IntegerField(default=1, validators=[MaxValueValidator(5), MinValueValidator(1)])
+    position = models.IntegerField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
