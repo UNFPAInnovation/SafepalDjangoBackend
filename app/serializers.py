@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app.models import Video, Category, Article, Organization, District
+from app.models import Video, Category, Article, Organization, District, Quiz
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -38,4 +38,10 @@ class OrganizationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Organization
+        fields = '__all__'
+
+
+class QuizSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Quiz
         fields = '__all__'

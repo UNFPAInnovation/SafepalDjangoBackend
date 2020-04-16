@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView
-from app.models import Video, Article, Organization, District
-from app.serializers import VideoSerializer, ArticleSerializer, OrganizationSerializer, DistrictSerializer
+from app.models import Video, Article, Organization, District, Quiz, Question
+from app.serializers import VideoSerializer, ArticleSerializer, OrganizationSerializer, DistrictSerializer, \
+    QuizSerializer
 
 
 class VideosView(ListCreateAPIView):
@@ -34,3 +35,11 @@ class DistrictView(ListCreateAPIView):
     """
     serializer_class = DistrictSerializer
     queryset = District.objects.all()
+
+
+class QuizView(ListCreateAPIView):
+    """
+    Lists and creates Quiz.
+    """
+    serializer_class = QuizSerializer
+    queryset = Quiz.objects.all()
