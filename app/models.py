@@ -68,6 +68,7 @@ class Quiz(models.Model):
     thumbnail = models.CharField(max_length=600, default=thumbnail_image)
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    article = models.ForeignKey(Article, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
