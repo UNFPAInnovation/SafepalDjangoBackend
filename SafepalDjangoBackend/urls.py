@@ -23,4 +23,4 @@ urlpatterns = [
     path(r'api/v1/questions', QuestionView.as_view(), name='question'),
 ]
 
-urlpatterns += static(settings.MEDIA_ROOT, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -155,5 +155,5 @@ USE_TZ = True
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 STATIC_URL = '/static/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'content').replace('\\', '/')
-MEDIA_URL = '/content/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'content/')
+MEDIA_URL = 'http://54.213.147.100/content/'
