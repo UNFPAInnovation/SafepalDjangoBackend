@@ -2,8 +2,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from app.Utils import thumbnail_image
-
 
 class Category(models.Model):
     name = models.CharField(max_length=400)
@@ -16,8 +14,8 @@ class Video(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     title = models.CharField(max_length=400)
     description = models.TextField()
-    thumbnail = models.CharField(max_length=600)
-    url = models.CharField(max_length=600)
+    thumbnail = models.ImageField(upload_to='thumbnail/video/')
+    url = models.FileField(upload_to='videos/')
     rating = models.IntegerField(default=5)
     duration = models.IntegerField(default=3)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -31,7 +29,7 @@ class Article(models.Model):
     title = models.CharField(max_length=400)
     content = models.TextField()
     questions = models.TextField()
-    thumbnail = models.CharField(max_length=600)
+    thumbnail = models.ImageField(upload_to='thumbnail/article/')
     rating = models.IntegerField(default=5)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -65,7 +63,7 @@ class Organization(models.Model):
 
 class Quiz(models.Model):
     title = models.CharField(max_length=400)
-    thumbnail = models.CharField(max_length=600, default=thumbnail_image)
+    thumbnail = models.ImageField(upload_to='thumbnail/quiz/')
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     article = models.ForeignKey(Article, on_delete=models.DO_NOTHING)
