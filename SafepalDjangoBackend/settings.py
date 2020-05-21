@@ -110,7 +110,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'safepaltestdb',
         'USER': 'postgres',
-        'PASSWORD': environ.get('PASSWORD', ''),
+        # 'PASSWORD': environ.get('PASSWORD', ''),
+        'PASSWORD': 'safepal123',
         'HOST': 'safepal-test-database-instance.chsjmdyi1oys.us-west-2.rds.amazonaws.com',
         'PORT': '5432'
     },
@@ -149,6 +150,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+CELERY_BROKER_URL = 'redis://localhost:6380'
+CELERY_RESULT_BACKEND = 'redis://localhost:6380'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
