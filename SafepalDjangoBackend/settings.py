@@ -44,7 +44,21 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'corsheaders',
-    'rest_framework_swagger'
+    'drf_yasg',
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
+    'wagtail.embeds',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.images',
+    'wagtail.search',
+    'wagtail.admin',
+    'wagtail.core',
+    'wagtail.contrib.modeladmin',
+    'modelcluster',
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -55,8 +69,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
-
+WAGTAIL_SITE_NAME = 'Safepal Dashboard'
 ROOT_URLCONF = 'SafepalDjangoBackend.urls'
 
 TEMPLATES = [
