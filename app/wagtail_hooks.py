@@ -6,7 +6,7 @@ from .models import *
 class ArticleAdmin(ModelAdmin):
     model = Article
     menu_label = "Articles"
-    menu_icon = "pick"
+    menu_icon = "doc-full"
     menu_order = 000
     add_to_settings_menu = False
     exclude_from_explorer = False
@@ -18,7 +18,7 @@ class ArticleAdmin(ModelAdmin):
 class VideoAdmin(ModelAdmin):
     model = Video
     menu_label = "Video"
-    menu_icon = "pick"
+    menu_icon = "media"
     menu_order = 100
     add_to_settings_menu = False
     exclude_from_explorer = False
@@ -30,7 +30,7 @@ class VideoAdmin(ModelAdmin):
 class QuizAdmin(ModelAdmin):
     model = Quiz
     menu_label = "Quizzes"
-    menu_icon = "pick"
+    menu_icon = "form"
     menu_order = 100
     add_to_settings_menu = False
     exclude_from_explorer = False
@@ -42,7 +42,7 @@ class QuizAdmin(ModelAdmin):
 class QuestionAdmin(ModelAdmin):
     model = Question
     menu_label = "Questions"
-    menu_icon = "pick"
+    menu_icon = "list-ol"
     menu_order = 200
     add_to_settings_menu = False
     exclude_from_explorer = False
@@ -53,7 +53,7 @@ class QuestionAdmin(ModelAdmin):
 
 class QuizGroup(ModelAdminGroup):
     menu_label = "QuizGroup"
-    menu_icon = "pick"
+    menu_icon = "list-ol"
     menu_order = 200
     items = (QuizAdmin, QuestionAdmin)
 
@@ -61,7 +61,7 @@ class QuizGroup(ModelAdminGroup):
 class OrganizationAdmin(ModelAdmin):
     model = Organization
     menu_label = "Organizations"
-    menu_icon = "pick"
+    menu_icon = "group"
     menu_order = 300
     add_to_settings_menu = False
     exclude_from_explorer = False
@@ -84,7 +84,7 @@ class CategoryAdmin(ModelAdmin):
 class DistrictAdmin(ModelAdmin):
     model = District
     menu_label = "Districts"
-    menu_icon = "pick"
+    menu_icon = "site"
     menu_order = 500
     add_to_settings_menu = False
     exclude_from_explorer = False
