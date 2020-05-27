@@ -1,17 +1,17 @@
-from wagtail.contrib.modeladmin.options import modeladmin_register, ModelAdmin
+from wagtail.contrib.modeladmin.options import modeladmin_register, ModelAdmin, ModelAdminGroup
 
 from .models import *
 
 
 class ArticleAdmin(ModelAdmin):
     model = Article
-    menu_label = "Article"
+    menu_label = "Articles"
     menu_icon = "pick"
     menu_order = 000
     add_to_settings_menu = False
     exclude_from_explorer = False
     list_display = ("title", "thumbnail", "created_at")
-    list_filter = ("title",)
+    list_filter = ("category",)
     search_fields = ("title",)
 
 
@@ -23,9 +23,78 @@ class VideoAdmin(ModelAdmin):
     add_to_settings_menu = False
     exclude_from_explorer = False
     list_display = ("title", "url", "created_at")
-    list_filter = ("title",)
+    list_filter = ("category",)
     search_fields = ("title",)
+
+
+class QuizAdmin(ModelAdmin):
+    model = Quiz
+    menu_label = "Quizzes"
+    menu_icon = "pick"
+    menu_order = 100
+    add_to_settings_menu = False
+    exclude_from_explorer = False
+    list_display = ("title", "thumbnail", "created_at")
+    list_filter = ("article", "category")
+    search_fields = ("content",)
+
+
+class QuestionAdmin(ModelAdmin):
+    model = Question
+    menu_label = "Questions"
+    menu_icon = "pick"
+    menu_order = 200
+    add_to_settings_menu = False
+    exclude_from_explorer = False
+    list_display = ("position", "content", "answer", "quiz")
+    list_filter = ("quiz",)
+    search_fields = ("content",)
+
+
+class QuizGroup(ModelAdminGroup):
+    menu_label = "QuizGroup"
+    menu_icon = "pick"
+    menu_order = 200
+    items = (QuizAdmin, QuestionAdmin)
+
+
+class OrganizationAdmin(ModelAdmin):
+    model = Organization
+    menu_label = "Organizations"
+    menu_icon = "pick"
+    menu_order = 300
+    add_to_settings_menu = False
+    exclude_from_explorer = False
+    list_display = ("facility_name", "district", "phone_number", "created_at")
+    list_filter = ("district",)
+    search_fields = ("facility_name",)
+
+
+class CategoryAdmin(ModelAdmin):
+    model = Category
+    menu_label = "Categories"
+    menu_icon = "pick"
+    menu_order = 400
+    add_to_settings_menu = False
+    exclude_from_explorer = False
+    list_display = ("name",)
+    search_fields = ("name",)
+
+
+class DistrictAdmin(ModelAdmin):
+    model = District
+    menu_label = "Districts"
+    menu_icon = "pick"
+    menu_order = 500
+    add_to_settings_menu = False
+    exclude_from_explorer = False
+    list_display = ("name",)
+    search_fields = ("name",)
 
 
 modeladmin_register(ArticleAdmin)
 modeladmin_register(VideoAdmin)
+modeladmin_register(QuizGroup)
+modeladmin_register(OrganizationAdmin)
+modeladmin_register(CategoryAdmin)
+modeladmin_register(DistrictAdmin)

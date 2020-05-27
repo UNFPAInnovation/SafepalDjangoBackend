@@ -86,5 +86,8 @@ class Question(models.Model):
     position = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['position']
+
     def __str__(self):
         return "%s %s %s" % (self.position, self.quiz.title, self.content)
