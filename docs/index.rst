@@ -54,12 +54,12 @@ Server Deployment
 Setup EC2 instance
 -------------------
 
-#. Log into the GetIn AWS account
+#. Log into the Safepal AWS account
 #. Go to Services > compute > EC2.
 #. Click on Launch Instance.
 #. Select Ubuntu Server 18.04 TLS(or higher)
 #. Click Review and Launch > Launch .
-#. Use existing pair(please check the documentation folder for the pem file GetInWebServer.pem
+#. Use existing pair(please check the documentation folder for the pem file sellio_aws_instance.pem
 #. Finally Click on Launch Instances.
 
 
@@ -68,8 +68,8 @@ SSH  into the Server, Install dependencies & setup postgreSql
 ----------------------------------------------------------------
 
 #. cd Desktop/
-#. sudo chmod 400 GetInWebServer.pem
-#. ssh -i GetInWebServer.pem ubuntu@public_ip_address
+#. sudo chmod 400 sellio_aws_instance.pem
+#. ssh -i sellio_aws_instance.pem ubuntu@public_ip_address
 #. sudo apt-get update && apt-get upgrade -y
 #. sudo apt-get install python-pip python-dev libpq-dev postgresql postgresql-contrib nginx git
 #. sudo apt-get install python3-venv
@@ -85,9 +85,9 @@ SSH  into the Server, Install dependencies & setup postgreSql
 #. pip install -r requirements.txt
 #. git clone https://github.com/UNFPAInnovation/SafepalDjangoBackend.git
 
-.. note:: All servers in the Safepal Project use the GetInWebServer.pem.
+.. note:: All servers in the Safepal Project use the sellio_aws_instance.pem.
 
-.. warning:: Activate allowed hosts in /home/ubuntu/GetInServerRebuild/GetInBackendRebuild/settings.py ALLOWED_HOSTS = ['*']
+.. warning:: Activate allowed hosts in /home/ubuntu/SafepalDjangoBackend/SafepalDjangoBackend/settings.py ALLOWED_HOSTS = ['*']
     Requests may not work if not activated or add the actual IP address of the server
 
 Enable supervisor
@@ -148,7 +148,11 @@ Run migrations
     python manage.py migrate
     python manage.py collectstatic
 
-Test if the server is running by running `python manage.py runserver 0.0.0.0:8000`
+Test if the server is running by running 
+
+.. code-block:: console
+    
+    python manage.py runserver 0.0.0.0:8000
 
 
 
@@ -196,11 +200,17 @@ Add the code `vim home/safepal/bin/gunicorn_start`
 
 
 Change permission of gunicorn_start
-`chmod u+x bin/gunicorn_start`
+
+.. code-block:: console
+
+    chmod u+x bin/gunicorn_start
 
 
 Make directory run
-`mkdir /home/safepal/run`
+
+.. code-block:: console
+    
+    mkdir /home/safepal/run
 
 Folder structure
 
@@ -211,7 +221,10 @@ Configure redis server
 -----------------------
 
 Edit redis settings
-`sudo vim /etc/redis/redis.conf`
+
+.. code-block:: python
+
+    sudo vim /etc/redis/redis.conf
 
 Allow systemd to run redis in a daemon
 
@@ -222,7 +235,10 @@ Allow systemd to run redis in a daemon
 
 
 Restart redis
-`sudo systemctl restart redis.service`
+
+.. code-block:: python
+
+    sudo systemctl restart redis.service
 
 
 Configure supervisor
@@ -280,7 +296,7 @@ Add service to run gunicorn and reddis
 Add static files and collect static
 -------------------------------------
 
-Add these lines to the `/home/ubuntu/GetInServerRebuild/GetInBackendRebuild/settings.py`
+Add these lines to the `/home/ubuntu/SafepalDjangoBackend/SafepalDjangoBackend/settings.py`
 
 .. code-block:: python
 
@@ -300,7 +316,7 @@ Then collect static files
 Configure Nginx to Proxy Pass to Gunicorn
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Create file named GetInServerRebuild
+Create file named safepal-program
 sudo vim /etc/nginx/sites-available/safepal-program
 
 Insert the following commands
@@ -353,8 +369,6 @@ Enable the file by linking it to the sites-enabled directory
 
 Update of code and server
 --------------------------
-
-Incase the code has changed in the repository
 
 .. code-block:: console
 
