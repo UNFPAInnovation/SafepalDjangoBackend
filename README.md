@@ -1,4 +1,5 @@
 # Safepal Django Backend
+[![Documentation Status](https://readthedocs.org/projects/docs/badge/?version=latest)](https://safepaldjangobackend.readthedocs.io/en/latest/)
 Safepal Django Backend handles GBV content in the Safepal app. That is videos, articles, quiz, questions
 
 

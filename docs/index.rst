@@ -101,6 +101,7 @@ Configure Postgres
 ---------------------
 
 .. code-block:: console
+
     su - postgres
     createuser safepaluser
     createdb safepaldb --owner safepaluser
@@ -112,6 +113,7 @@ Configure The Application User
 -------------------------------
 
 .. code-block:: console
+
     adduser safepal
     gpasswd -a safepal sudo
     su - safepal
@@ -122,6 +124,7 @@ Configure python environment
 Clone the project and install requirements
 
 .. code-block:: console
+
     python3 -m venv .
     source bin/activate
     git clone https://github.com/UNFPAInnovation/SafepalDjangoBackend.git
@@ -131,6 +134,7 @@ Clone the project and install requirements
 Add the database configs
 
 .. code-block:: python
+
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -145,6 +149,7 @@ Add the database configs
 Run migrations
 
 .. code-block:: console
+
     python manage.py migrate
     python manage.py collectstatic
 
@@ -255,6 +260,7 @@ Create config files and log files
 Add service to run gunicorn and reddis
 
 .. code-block:: python
+
     [program:safepal-program3]
     command=/home/safepal/bin/gunicorn_start
     user=safepal
