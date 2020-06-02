@@ -91,3 +91,13 @@ class Question(models.Model):
 
     def __str__(self):
         return "%s %s %s" % (self.position, self.quiz.title, self.content)
+
+
+class FAQ(models.Model):
+    question = models.TextField()
+    answer = models.TextField()
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.question

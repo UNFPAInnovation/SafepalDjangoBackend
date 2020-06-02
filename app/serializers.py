@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app.models import Video, Category, Article, Organization, District, Quiz, Question
+from app.models import Video, Category, Article, Organization, District, Quiz, Question, FAQ
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -52,4 +52,13 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
+        fields = '__all__'
+
+
+class FAQSerializer(serializers.ModelSerializer):
+    category = CategorySerializer(many=False, read_only=True)
+    category_id = serializers.IntegerField(write_only=True)
+
+    class Meta:
+        model = FAQ
         fields = '__all__'

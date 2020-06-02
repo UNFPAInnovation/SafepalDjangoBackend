@@ -5,7 +5,7 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
-from app.views import VideosView, ArticlesView, OrganizationView, DistrictView, QuizView, QuestionView
+from app.views import VideosView, ArticlesView, OrganizationView, DistrictView, QuizView, QuestionView, FAQView
 from django.conf.urls.static import static
 from SafepalDjangoBackend import settings
 from django.urls import path, re_path, include
@@ -38,6 +38,7 @@ urlpatterns = [
     path(r'api/v1/districts', DistrictView.as_view(), name='district'),
     path(r'api/v1/quizzes', QuizView.as_view(), name='quiz'),
     path(r'api/v1/questions', QuestionView.as_view(), name='question'),
+    path(r'api/v1/faqs', FAQView.as_view(), name='faq'),
     re_path(r'^cms/', include(wagtailadmin_urls)),
     re_path(r'^documents/', include(wagtaildocs_urls)),
     re_path(r'^pages/', include(wagtail_urls)),
