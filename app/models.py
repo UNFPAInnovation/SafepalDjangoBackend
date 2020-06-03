@@ -101,3 +101,12 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.question
+
+
+class FAQRating(models.Model):
+    rating = models.IntegerField(default=1, validators=[MaxValueValidator(5), MinValueValidator(1)])
+    faq = models.ForeignKey(FAQ, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.faq.question + " " + str(self.created_at)
