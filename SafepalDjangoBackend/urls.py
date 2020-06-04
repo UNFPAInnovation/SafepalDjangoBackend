@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
@@ -40,6 +41,7 @@ urlpatterns = [
     path(r'api/v1/questions', QuestionView.as_view(), name='question'),
     path(r'api/v1/faqs', FAQView.as_view(), name='faq'),
     path(r'api/v1/faqratings', FAQRatingView.as_view(), name='faqratings'),
+    url(r'^chat', TemplateView.as_view(template_name='chat_reply.html')),
     re_path(r'^cms/', include(wagtailadmin_urls)),
     re_path(r'^documents/', include(wagtaildocs_urls)),
     re_path(r'^pages/', include(wagtail_urls)),
