@@ -93,12 +93,42 @@ class DistrictAdmin(ModelAdmin):
     search_fields = ("name",)
 
 
+class FAQAdmin(ModelAdmin):
+    model = FAQ
+    menu_label = "FAQ"
+    menu_icon = "pick"
+    menu_order = 100
+    add_to_settings_menu = False
+    exclude_from_explorer = False
+    list_display = ("question", "answer", "created_at")
+    list_filter = ("category",)
+    search_fields = ("question",)
+
+
+class FAQRatingAdmin(ModelAdmin):
+    model = FAQRating
+    menu_label = "FAQRating"
+    menu_icon = "pick"
+    menu_order = 200
+    add_to_settings_menu = False
+    exclude_from_explorer = False
+    list_display = ("rating", "faq", "created_at")
+    list_filter = ("rating",)
+
+
+class FAQGroup(ModelAdminGroup):
+    menu_label = "FAQGroup"
+    menu_icon = "list-ol"
+    menu_order = 700
+    items = (FAQAdmin, FAQRatingAdmin)
+
 modeladmin_register(ArticleAdmin)
 modeladmin_register(VideoAdmin)
 modeladmin_register(QuizGroup)
 modeladmin_register(OrganizationAdmin)
 modeladmin_register(CategoryAdmin)
 modeladmin_register(DistrictAdmin)
+modeladmin_register(FAQGroup)
 
 
 @hooks.register('construct_main_menu')
