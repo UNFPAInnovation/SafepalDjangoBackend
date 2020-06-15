@@ -113,7 +113,7 @@ class FAQRatingAdmin(ModelAdmin):
     add_to_settings_menu = False
     exclude_from_explorer = False
     list_display = ("rating", "faq", "created_at")
-    list_filter = ("rating",)
+    list_filter = ("faq",)
 
 
 class FAQGroup(ModelAdminGroup):
