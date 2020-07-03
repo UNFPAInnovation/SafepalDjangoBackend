@@ -22,12 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'es^0e_5z6m)mlfj#!b@i-a4&8^$j*wch#&g4pxqq#x#dtsx7(c'
+SECRET_KEY = environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = environ.get('DEBUG', True)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['154.72.194.219', '0.0.0.0', 'localhost']
 
 
 # Application definition
@@ -122,14 +122,14 @@ WSGI_APPLICATION = 'SafepalDjangoBackend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'safepaltestdb',
-        'USER': 'postgres',
-        # 'PASSWORD': environ.get('PASSWORD', ''),
-        'PASSWORD': 'safepal123',
-        'HOST': 'safepal-test-database-instance.chsjmdyi1oys.us-west-2.rds.amazonaws.com',
+        'NAME': environ.get('DB_NAME', ''),
+        'USER': environ.get('DB_USER', ''),
+        'PASSWORD': environ.get('DB_PASSWORD', ''),
+        'HOST': environ.get('DB_HOST', ''),
         'PORT': '5432'
     },
 }
+
 
 
 # Password validation

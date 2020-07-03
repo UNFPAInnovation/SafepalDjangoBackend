@@ -102,7 +102,7 @@ Configure Postgres
 
 .. code-block:: console
 
-    su - postgres
+    su - postgres OR sudo -u postgres psql
     createuser safepaluser
     createdb safepaldb --owner safepaluser
     psql -c "ALTER USER safepaluser WITH PASSWORD '123'"
@@ -160,6 +160,18 @@ Test if the server is running by running
     python manage.py runserver 0.0.0.0:8000
 
 
+Configure gunicorn
+----------------------
+
+Add these to `bin/activate` file. Do this for production and test
+export DEBUG=False
+export SECRET_KEY=''
+export DB_NAME=''
+export DB_USER=''
+export DB_PASSWORD=''
+export DB_HOST=''
+
+.. note:: Check the Safepal drive for the test and production credentials. Contact the Outbox developers for details. codephillip@gmail.com - 0756878460
 
 Configure gunicorn
 ----------------------
@@ -255,7 +267,7 @@ Create config files and log files
     
     mkdir logs
     touch logs/gunicorn-error.log
-    /etc/supervisor/conf.d/safepal-program.conf
+    vim /etc/supervisor/conf.d/safepal-program.conf
 
 Add service to run gunicorn and reddis
 
