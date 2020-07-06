@@ -400,6 +400,19 @@ The command handles renewal of the domain as well
     sudo certbot --nginx -d webdashboard.safepal.co
 
 
+Activate storage drive(optional)
+----------------------------------
+
+Incase you have a separate storage drive for your content, add the location in the settings.py. Then activate the drive
+
+.. code-block:: console
+
+    su - root
+    sudo mkfs -t ext4 /dev/sdb
+    sudo mount /dev/sdb1 /mnt
+    sudo chmod -R -v 777 /mnt/
+
+
 Update of code and server
 --------------------------
 
