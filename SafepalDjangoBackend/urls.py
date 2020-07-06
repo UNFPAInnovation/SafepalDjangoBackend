@@ -21,15 +21,16 @@ schema_view = get_schema_view(
         contact=openapi.Contact(email="pkigenyi@outbox.co.ug"),
         license=openapi.License(name="Copy Right"),
     ),
+    url='https://webdashboard.safepal.co/api/v1/',
     public=True,
-    permission_classes=(permissions.AllowAny,),
+    permission_classes=(permissions.IsAuthenticated,),
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    url(r'^$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    url(r'^swagger$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    url(r'^redoc$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('admin/', admin.site.urls),
     path(r'auth/', include('djoser.urls.base')),
     path(r'auth/', include('djoser.urls.authtoken')),
@@ -42,9 +43,7 @@ urlpatterns = [
     path(r'api/v1/faqs', FAQView.as_view(), name='faq'),
     path(r'api/v1/faqratings', FAQRatingView.as_view(), name='faqratings'),
     url(r'^chat', TemplateView.as_view(template_name='chat_reply.html')),
-    re_path(r'^cms/', include(wagtailadmin_urls)),
-    re_path(r'^documents/', include(wagtaildocs_urls)),
-    re_path(r'^pages/', include(wagtail_urls)),
+    re_path(r'^', include(wagtailadmin_urls)),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

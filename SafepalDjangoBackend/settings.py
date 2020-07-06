@@ -120,9 +120,10 @@ SWAGGER_SETTINGS = {
             'type': 'basic'
         }
     },
-    USE_X_FORWARDED_HOST = True
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    USE_SESSION_AUTH = True
+    'USE_X_FORWARDED_HOST': True,
+    'SECURE_PROXY_SSL_HEADER': ('HTTP_X_FORWARDED_PROTO', 'https'),
+    'USE_SESSION_AUTH': True,
+    'is_authenticated': True,
 }
 
 # Database
