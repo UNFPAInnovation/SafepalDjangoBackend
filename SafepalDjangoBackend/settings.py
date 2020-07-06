@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = environ.get('DEBUG', True)
+DEBUG = environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ['154.72.194.219', '0.0.0.0', '127.0.0.1', 'localhost', 'webdashboard.safepal.co', 'www.webdashboard.safepal.co']
 
@@ -187,4 +187,7 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 STATIC_URL = '/static/'
 MEDIA_URL = '/content/'
 # Please active the drive /dev/sdb on the production server. check the documentation for details
-MEDIA_ROOT = os.path.join(BASE_DIR, 'content/') if environ.get('DEBUG', False) else '/mnt/content/'
+if environ.get('DEBUG', False):
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'content/')
+else:
+    MEDIA_ROOT = '/mnt/content/'
