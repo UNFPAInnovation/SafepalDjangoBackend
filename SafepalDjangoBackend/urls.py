@@ -44,8 +44,10 @@ urlpatterns = [
     path(r'api/v1/faqs', FAQView.as_view(), name='faq'),
     path(r'api/v1/faqratings', FAQRatingView.as_view(), name='faqratings'),
     url(r'^chat', TemplateView.as_view(template_name='chat_reply.html')),
+    re_path(r'', include(wagtailadmin_urls))
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-# place the wagtail urls afters media root because they will interfere with the image url
-urlpatterns += [re_path(r'', include(wagtailadmin_urls))]
+# to serve static files in production, use nginx. 
+# check the documentation https://safepaldjangobackend.readthedocs.io/en/latest/
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

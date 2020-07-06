@@ -373,6 +373,11 @@ Insert the following commands
             try_files $uri @proxy_to_app;
         }
 
+        location /content {
+            alias /mnt/content; # change the media url incase ints not in mnt
+            access_log off;
+        }
+
         location @proxy_to_app {
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
           proxy_set_header Host $http_host;
@@ -411,6 +416,8 @@ Incase you have a separate storage drive for your content, add the location in t
     sudo mkfs -t ext4 /dev/sdb
     sudo mount /dev/sdb1 /mnt
     sudo chmod -R -v 777 /mnt/
+
+
 
 
 Update of code and server
