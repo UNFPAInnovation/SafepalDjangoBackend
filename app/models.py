@@ -18,7 +18,7 @@ class Video(models.Model):
     url = models.FileField(upload_to='videos/', help_text='Get low res version of video by replacing xyz.mp4 with xyz_480p.m38u')
     rating = models.IntegerField(default=5)
     duration = models.IntegerField(default=3)
-    created_at = models.DateTimeField(auto_now_add=True)
+    # created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title

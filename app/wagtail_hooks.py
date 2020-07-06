@@ -23,7 +23,7 @@ class VideoAdmin(ModelAdmin):
     menu_order = 200
     add_to_settings_menu = False
     exclude_from_explorer = False
-    list_display = ("title", "url", "created_at")
+    list_display = ("title", "url")
     list_filter = ("category",)
     search_fields = ("title",)
 
