@@ -164,12 +164,15 @@ Configure gunicorn
 ----------------------
 
 Add these to `bin/activate` file. Do this for production and test
-export DEBUG=False
-export SECRET_KEY=''
-export DB_NAME=''
-export DB_USER=''
-export DB_PASSWORD=''
-export DB_HOST=''
+
+.. code-block:: console
+
+    export DEBUG=False
+    export SECRET_KEY=''
+    export DB_NAME=''
+    export DB_USER=''
+    export DB_PASSWORD=''
+    export DB_HOST=''
 
 .. note:: Check the Safepal drive for the test and production credentials. Contact the Outbox developers for details. codephillip@gmail.com - 0756878460
 
@@ -204,7 +207,6 @@ Add the code `vim home/safepal/bin/gunicorn_start`
 
     export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
     export PYTHONPATH=$DIR:$PYTHONPATH
-    export PASSWORD=safepal123
 
     exec ../bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
       --name $NAME \
@@ -273,7 +275,7 @@ Add service to run gunicorn and reddis
 
 .. code-block:: python
 
-    [program:safepal-program3]
+    [program:safepal-program]
     command=/home/safepal/bin/gunicorn_start
     user=safepal
     autostart=true
@@ -306,7 +308,7 @@ Add service to run gunicorn and reddis
 
     sudo supervisorctl reread
     sudo supervisorctl update
-    sudo supervisorctl restart safepal-program3
+    sudo supervisorctl restart safepal-program
     sudo supervisorctl restart safepal-celery
 
 
@@ -350,7 +352,7 @@ Insert the following commands
 
         # add here the ip address of your server
         # or a domain pointing to that ip (like example.com or www.example.com)
-        server_name 54.213.147.100;
+        server_name x.x.x.x;
 
         keepalive_timeout 5;
         client_max_body_size 4G;
@@ -399,4 +401,12 @@ Update of code and server
     git pull origin master
     python manage.py collectstatic
     python manage.py migrate
-    sudo supervisorctl restart safepal-program3
+    sudo supervisorctl restart safepal-program
+
+
+OR run the script `deploy.sh`
+
+.. code-block:: console
+
+    cd SafepalDjangoBackend
+    ../deploy.sh
