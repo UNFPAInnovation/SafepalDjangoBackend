@@ -21,6 +21,7 @@ schema_view = get_schema_view(
         contact=openapi.Contact(email="pkigenyi@outbox.co.ug"),
         license=openapi.License(name="Copy Right"),
     ),
+    # change this in debug mode to localhost:8000
     url='https://webdashboard.safepal.co/api/v1/',
     public=True,
     permission_classes=(permissions.IsAuthenticated,),
@@ -43,7 +44,8 @@ urlpatterns = [
     path(r'api/v1/faqs', FAQView.as_view(), name='faq'),
     path(r'api/v1/faqratings', FAQRatingView.as_view(), name='faqratings'),
     url(r'^chat', TemplateView.as_view(template_name='chat_reply.html')),
-    re_path(r'^', include(wagtailadmin_urls)),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# place the wagtail urls afters media root because they will interfere with the image url
+urlpatterns += [re_path(r'', include(wagtailadmin_urls))]
