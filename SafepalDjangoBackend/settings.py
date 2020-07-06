@@ -29,11 +29,6 @@ DEBUG = environ.get('DEBUG', True)
 
 ALLOWED_HOSTS = ['154.72.194.219', '0.0.0.0', '127.0.0.1', 'localhost', 'webdashboard.safepal.co', 'www.webdashboard.safepal.co']
 
-# Setup support for proxy headers
-USE_X_FORWARDED_HOST = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-USE_SESSION_AUTH = True
-DEFAULT_API_URL = 'https://webdashboard.safepal.co/'
 # Application definition
 
 INSTALLED_APPS = [
@@ -119,6 +114,16 @@ REST_FRAMEWORK = {
 
 WSGI_APPLICATION = 'SafepalDjangoBackend.wsgi.application'
 
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'basic'
+        }
+    },
+    USE_X_FORWARDED_HOST = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    USE_SESSION_AUTH = True
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
