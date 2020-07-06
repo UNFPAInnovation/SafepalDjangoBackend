@@ -47,6 +47,10 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis
 
 https://github.com/aminyazdanpanah/python-ffmpeg-video-streaming
 
+* SSL certificate. Step 4 and 5
+
+https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04
+
 
 
 Server Deployment
@@ -385,6 +389,15 @@ Enable the file by linking it to the sites-enabled directory
     sudo ln -s /etc/nginx/sites-available/safepal-program /etc/nginx/sites-enabled
     sudo service nginx restart
 
+
+Add SSL certificate
+--------------------
+
+The command handles renewal of the domain as well
+
+.. code-block:: console
+
+    sudo certbot --nginx -d webdashboard.safepal.co
 
 
 Update of code and server
