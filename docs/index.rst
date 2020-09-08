@@ -314,6 +314,9 @@ Add service to run gunicorn and reddis
     sudo supervisorctl update
     sudo supervisorctl restart safepal-program
     sudo supervisorctl restart safepal-celery
+    if this error is thrown. supervisor: couldn't exec /home/ubuntu/bin/gunicorn_start: EACCES
+    RUN: chmod +x gunicorn_start
+
 
 
 
@@ -402,6 +405,10 @@ The command handles renewal of the domain as well
 
 .. code-block:: console
 
+    sudo add-apt-repository ppa:certbot/certbot
+    sudo apt  install certbot
+    sudo apt-get install python-certbot-nginx
+    sudo apt-get install software-properties-common
     sudo certbot --nginx -d webdashboard.safepal.co
 
 
