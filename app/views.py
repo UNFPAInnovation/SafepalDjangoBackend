@@ -3,12 +3,13 @@ from rest_framework.generics import ListCreateAPIView
 from app.models import Video, Article, Organization, District, Quiz, Question, FAQ, FAQRating
 from app.serializers import VideoSerializer, ArticleSerializer, OrganizationSerializer, DistrictSerializer, \
     QuizSerializer, QuestionSerializer, FAQSerializer, FAQRatingSerializer
-
+from rest_framework.parsers import MultiPartParser, FormParser
 
 class VideosView(ListCreateAPIView):
     """
     Lists and creates Videos.
     """
+    parser_classes = [MultiPartParser, FormParser]
     serializer_class = VideoSerializer
     queryset = Video.objects.all()
 

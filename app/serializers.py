@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from app.models import Video, Category, Article, Organization, District, Quiz, Question, FAQ, FAQRating
-
+from rest_framework.parsers import MultiPartParser, FormParser
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,6 +9,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class VideoSerializer(serializers.ModelSerializer):
+    parser_classes = [MultiPartParser, FormParser]
     category = CategorySerializer(many=False, read_only=True)
     category_id = serializers.IntegerField(write_only=True)
 

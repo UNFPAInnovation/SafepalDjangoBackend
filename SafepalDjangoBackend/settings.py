@@ -25,7 +25,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = environ.get('DEBUG', False) == 'True'
+# DEBUG = environ.get('DEBUG', False) == 'True'
+DEBUG = True
 
 ALLOWED_HOSTS = ['154.72.194.219', '0.0.0.0', '127.0.0.1', 'localhost', 'webdashboard.safepal.co', 'www.webdashboard.safepal.co', 'testwebdashboard.safepal.co']
 
@@ -64,7 +65,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
