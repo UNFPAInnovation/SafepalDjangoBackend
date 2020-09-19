@@ -140,10 +140,10 @@ SWAGGER_SETTINGS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': environ.get('DB_NAME', ''),
-        'USER': environ.get('DB_USER', ''),
-        'PASSWORD': environ.get('DB_PASSWORD', ''),
-        'HOST': environ.get('DB_HOST', ''),
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
         'PORT': '5432'
     },
 }
@@ -195,7 +195,4 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 STATIC_URL = '/static/'
 MEDIA_URL = '/content/'
 # Please active the drive /dev/sdb on the production server. check the documentation for details
-if environ.get('DEBUG', False) == 'True':
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'content/')
-else:
-    MEDIA_ROOT = '/mnt/content/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'content/') if DEBUG else '/mnt/content/'
