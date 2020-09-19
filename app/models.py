@@ -1,7 +1,6 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from datetime import datetime
 
 
 class Category(models.Model):
@@ -20,7 +19,6 @@ class Video(models.Model):
                            help_text='Get low res version of video by replacing xyz.mp4 with xyz_480p.m38u')
     rating = models.IntegerField(default=5)
     duration = models.IntegerField(default=3)
-    created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
         return self.title
