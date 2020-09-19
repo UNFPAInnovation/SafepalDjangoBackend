@@ -18,6 +18,7 @@ class ArticlesView(ListCreateAPIView):
     """
     Lists and creates Articles.
     """
+    parser_classes = [MultiPartParser, FormParser]
     serializer_class = ArticleSerializer
     queryset = Article.objects.all()
 
