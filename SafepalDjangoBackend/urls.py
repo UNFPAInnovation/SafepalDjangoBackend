@@ -32,7 +32,6 @@ urlpatterns = [
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^swagger$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^redoc$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path('admin/', admin.site.urls),
     path(r'auth/', include('djoser.urls.base')),
     path(r'auth/', include('djoser.urls.authtoken')),
     path(r'api/v1/videos', VideosView.as_view(), name='video'),
@@ -43,7 +42,7 @@ urlpatterns = [
     path(r'api/v1/questions', QuestionView.as_view(), name='question'),
     path(r'api/v1/faqs', FAQView.as_view(), name='faq'),
     path(r'api/v1/faqratings', FAQRatingView.as_view(), name='faqratings'),
-    url(r'^chat', TemplateView.as_view(template_name='chat_reply.html')),
+    url(r'^chat$', TemplateView.as_view(template_name='chat_reply.html')),
     re_path(r'', include(wagtailadmin_urls))
 ]
 

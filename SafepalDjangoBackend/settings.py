@@ -13,19 +13,27 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from os import environ
+import os
+import environ
 
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, True)
+)
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+env.read_env(os.environ.get("ENV_PATH", BASE_DIR + '/SafepalDjangoBackend/.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = environ.get('SECRET_KEY', '')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = environ.get('DEBUG', False) == 'True'
+# DEBUG = environ.get('DEBUG', False) == 'True'
+DEBUG = env('DEBUG', default=True)
 
 ALLOWED_HOSTS = ['154.72.194.219', '0.0.0.0', '127.0.0.1', 'localhost', 'webdashboard.safepal.co', 'www.webdashboard.safepal.co', 'testwebdashboard.safepal.co']
 
@@ -64,7 +72,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
@@ -132,10 +140,10 @@ SWAGGER_SETTINGS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': environ.get('DB_NAME', ''),
-        'USER': environ.get('DB_USER', ''),
-        'PASSWORD': environ.get('DB_PASSWORD', ''),
-        'HOST': environ.get('DB_HOST', ''),
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
         'PORT': '5432'
     },
 }
@@ -187,7 +195,4 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 STATIC_URL = '/static/'
 MEDIA_URL = '/content/'
 # Please active the drive /dev/sdb on the production server. check the documentation for details
-if environ.get('DEBUG', False) == 'True':
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'content/')
-else:
-    MEDIA_ROOT = '/mnt/content/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'content/') if DEBUG else '/mnt/content/'
