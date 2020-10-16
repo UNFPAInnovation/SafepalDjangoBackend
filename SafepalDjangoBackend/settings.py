@@ -196,5 +196,4 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 STATIC_URL = '/static/'
 MEDIA_URL = '/content/'
-# Please active the drive /dev/sdb on the production server. check the documentation for details
-MEDIA_ROOT = os.path.join(BASE_DIR, 'content/') if DEBUG else '/mnt/content/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'content/')
