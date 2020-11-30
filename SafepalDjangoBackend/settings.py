@@ -35,7 +35,7 @@ SECRET_KEY = env('SECRET_KEY')
 # DEBUG = environ.get('DEBUG', False) == 'True'
 DEBUG = env('DEBUG', default=True)
 
-ALLOWED_HOSTS = ['154.72.194.219', '54.186.60.108', '0.0.0.0', '127.0.0.1', 'localhost', 'webdashboard.safepal.co', 'www.webdashboard.safepal.co', 'testwebdashboard.safepal.co']
+ALLOWED_HOSTS = ['35.198.98.106', '154.72.194.219', '54.186.60.108', '0.0.0.0', '127.0.0.1', 'localhost', 'webdashboard.safepal.co', 'www.webdashboard.safepal.co', 'testwebdashboard.safepal.co']
 # USE_X_FORWARDED_HOST = True
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # SECURE_SSL_REDIRECT = True
