@@ -31,6 +31,6 @@ python-ffmpeg-video-streaming==0.1.5
 celery==4.4.2
 # install redis-server on server
 redis==3.5.2
-wagtail==2.9
+wagtail==2.11.6
 drf-yasg==1.17.1
 django-environ==0.4.5
