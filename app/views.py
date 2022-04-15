@@ -1,9 +1,13 @@
+
 from django.shortcuts import render
+from requests import Response
 from rest_framework.generics import ListCreateAPIView
 from app.models import Video, Article, Organization, District, Quiz, Question, FAQ, FAQRating
 from app.serializers import VideoSerializer, ArticleSerializer, OrganizationSerializer, DistrictSerializer, \
     QuizSerializer, QuestionSerializer, FAQSerializer, FAQRatingSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
+from SafepalDjangoBackend.settings import SHEET_FILES_FOLDER
+from .extractor import  extract_excel_data
 
 class VideosView(ListCreateAPIView):
     """
@@ -69,3 +73,17 @@ class FAQRatingView(ListCreateAPIView):
     """
     serializer_class = FAQRatingSerializer
     queryset = FAQRating.objects.all()
+
+
+class CSOUploadView(ListCreateAPIView):
+     serializer_class = OrganizationSerializer
+
+     def get(self, request, format=None, **kwargs):
+        # location = (SHEET_FILES_FOLDER + "tester.xls")
+        location = (SHEET_FILES_FOLDER + "CSOlist.xls")
+        extract_excel_data(location)
+
+        return Response({"result": "success"})
+
+
+          

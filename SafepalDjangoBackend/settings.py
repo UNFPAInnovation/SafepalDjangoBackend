@@ -140,15 +140,21 @@ SWAGGER_SETTINGS = {
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST'),
-        'PORT': '5432'
+    'test': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': env('DB_NAME'),
+    #     'USER': env('DB_USER'),
+    #     'PASSWORD': env('DB_PASSWORD'),
+    #     'HOST': env('DB_HOST'),
+    #     'PORT': '5432'
+    # },
 }
+DATABASES['default'] = DATABASES[os.environ.get('DATABASE_TYPE', default='test')]
+
 
 
 
@@ -197,3 +203,7 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 STATIC_URL = '/static/'
 MEDIA_URL = '/content/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'content/')
+
+# lookup files for static files
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SHEET_FILES_FOLDER = os.path.join(BASE_DIR, 'sheets/')
