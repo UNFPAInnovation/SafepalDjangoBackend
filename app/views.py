@@ -1,4 +1,6 @@
 
+from django.forms import DecimalField
+from django.http import HttpResponse
 from django.shortcuts import render
 from requests import Response
 from rest_framework.generics import ListCreateAPIView
@@ -8,6 +10,9 @@ from app.serializers import VideoSerializer, ArticleSerializer, OrganizationSeri
 from rest_framework.parsers import MultiPartParser, FormParser
 from SafepalDjangoBackend.settings import SHEET_FILES_FOLDER
 from .extractor import  extract_excel_data
+from geopy.distance import geodesic
+from django.db.models import F,Value,ExpressionWrapper
+from rest_framework.renderers import  JSONRenderer
 
 class VideosView(ListCreateAPIView):
     """
@@ -83,7 +88,71 @@ class CSOUploadView(ListCreateAPIView):
         location = (SHEET_FILES_FOLDER + "CSOlist.xls")
         extract_excel_data(location)
 
-        return Response({"result": "success"})
+        return HttpResponse("Successfully Extrated CSOs")
+
+
+          
+class CurrentLocationView(ListCreateAPIView):
+    """
+    lists distructs withing the provided coordinates
+    """
+    serializer_class = OrganizationSerializer
+    def post(self, request):
+        coordinates = request.data
+        lat = coordinates["lat"]
+        long = coordinates["lng"]
+        coords_1=(lat, long)
+        queryset = Organization.objects.all().values('facility_name','phone_number', 'latitude','longitude')
+        
+        orgunits=[]
+        for cso in queryset:
+            lat = cso["latitude"]
+            lng = cso["longitude"]
+            coords_2=(lat,lng)
+            distance=geodesic(coords_1, coords_2).km
+            orgunits.append({
+                "facility_name":cso["facility_name"],
+                "phone_number":cso["phone_number"],
+                "distance":distance
+            })
+        newlist = sorted(orgunits,key=lambda d: d['distance'])  
+        return JSONRenderer().render({"org_units":newlist[:10]})
+
+# class CurrentLocationView(ListCreateAPIView):
+#     """
+#     lists distructs withing the provided coordinates
+#     """
+#     serializer_class = OrganizationSerializer
+#     def post(self, request):
+#         coordinates = request.data
+#         lat = coordinates["lat"]
+#         long = coordinates["lng"]
+#         coords_1=(lat, long)
+#         # queryset = Organization.objects.all().values('facility_name','phone_number', 'latitude','longitude').annotate(distance=Value(geodesic(coords_1, (60.325679,24.7394406)).km))
+#         queryset = Organization.objects.all().values('facility_name','phone_number', 'latitude','longitude').annotate(distance=geodesic(coords_1, (F('latitude'),F('longitude'))).km)
+#         orgunits = list(queryset.exclude('latitude','longitude').order_by('distance').values())
+#         print(orgunits)
+#         # return HttpResponse(orgunits)
+#         return HttpResponse("Hello")
+
+# class CurrentLocationView(ListCreateAPIView):
+#     """
+#     lists distructs withing the provided coordinates
+#     """
+#     serializer_class = OrganizationSerializer
+#     def post(self, request):
+#         coordinates = request.data
+#         lat = coordinates["lat"]
+#         long = coordinates["lng"]
+#         coords_1=(lat, long)
+#         # queryset = Organization.objects.all().values('facility_name','phone_number', 'latitude','longitude').annotate(distance=Value(geodesic(coords_1, (60.325679,24.7394406)).km))
+#         distance = ExpressionWrapper(geodesic(coords_1, (F('latitude'),F('longitude'))).km,output_field=DecimalField())
+#         queryset = Organization.objects.all().values('facility_name','phone_number', 'latitude','longitude').annotate(distance=distance)
+#         orgunits = list(queryset.exclude('latitude','longitude').order_by('distance').values())
+#         print(orgunits)
+#         # return HttpResponse(orgunits)
+#         return HttpResponse("Hello")
+
 
 
           

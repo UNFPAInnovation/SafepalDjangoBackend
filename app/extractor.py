@@ -2,7 +2,7 @@ from decimal import Decimal
 from unicodedata import decimal
 import xlrd
 import traceback
-from api.models import Organization, District
+from .models import Organization, District
 
 
 def extract_excel_data(location):
