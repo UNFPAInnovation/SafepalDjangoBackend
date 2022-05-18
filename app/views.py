@@ -94,7 +94,7 @@ class CSOUploadView(ListCreateAPIView):
           
 class CurrentLocationView(ListCreateAPIView):
     """
-    lists distructs withing the provided coordinates
+    lists distructs within the provided coordinates
     """
     serializer_class = OrganizationSerializer
     def post(self, request):
@@ -117,41 +117,6 @@ class CurrentLocationView(ListCreateAPIView):
             })
         newlist = sorted(orgunits,key=lambda d: d['distance'])  
         return JSONRenderer().render({"org_units":newlist[:10]})
-
-# class CurrentLocationView(ListCreateAPIView):
-#     """
-#     lists distructs withing the provided coordinates
-#     """
-#     serializer_class = OrganizationSerializer
-#     def post(self, request):
-#         coordinates = request.data
-#         lat = coordinates["lat"]
-#         long = coordinates["lng"]
-#         coords_1=(lat, long)
-#         # queryset = Organization.objects.all().values('facility_name','phone_number', 'latitude','longitude').annotate(distance=Value(geodesic(coords_1, (60.325679,24.7394406)).km))
-#         queryset = Organization.objects.all().values('facility_name','phone_number', 'latitude','longitude').annotate(distance=geodesic(coords_1, (F('latitude'),F('longitude'))).km)
-#         orgunits = list(queryset.exclude('latitude','longitude').order_by('distance').values())
-#         print(orgunits)
-#         # return HttpResponse(orgunits)
-#         return HttpResponse("Hello")
-
-# class CurrentLocationView(ListCreateAPIView):
-#     """
-#     lists distructs withing the provided coordinates
-#     """
-#     serializer_class = OrganizationSerializer
-#     def post(self, request):
-#         coordinates = request.data
-#         lat = coordinates["lat"]
-#         long = coordinates["lng"]
-#         coords_1=(lat, long)
-#         # queryset = Organization.objects.all().values('facility_name','phone_number', 'latitude','longitude').annotate(distance=Value(geodesic(coords_1, (60.325679,24.7394406)).km))
-#         distance = ExpressionWrapper(geodesic(coords_1, (F('latitude'),F('longitude'))).km,output_field=DecimalField())
-#         queryset = Organization.objects.all().values('facility_name','phone_number', 'latitude','longitude').annotate(distance=distance)
-#         orgunits = list(queryset.exclude('latitude','longitude').order_by('distance').values())
-#         print(orgunits)
-#         # return HttpResponse(orgunits)
-#         return HttpResponse("Hello")
 
 
 
