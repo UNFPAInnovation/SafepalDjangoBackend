@@ -36,3 +36,5 @@ redis==3.5.2
 wagtail==2.9
 drf-yasg==1.17.1
 django-environ==0.4.5
+geopy==2.2.0
+xlrd==2.0.1
