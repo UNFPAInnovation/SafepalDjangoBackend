@@ -30,7 +30,7 @@ geographiclib==1.52
 geopy==2.2.0
 # install ffmpeg on server
 python-ffmpeg-video-streaming==0.1.5
-celery==4.4.2
+celery==5.2.2
 # install redis-server on server
 redis==3.5.2
 wagtail==2.9
