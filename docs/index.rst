@@ -75,19 +75,18 @@ SSH  into the Server, Install dependencies & setup postgreSql
 #. sudo chmod 400 sellio_aws_instance.pem
 #. ssh -i sellio_aws_instance.pem ubuntu@public_ip_address
 #. sudo apt-get update && apt-get upgrade -y
-#. sudo apt-get install python-pip python-dev libpq-dev postgresql postgresql-contrib nginx git
+#. sudo apt-get install postgresql postgresql-contrib nginx git
 #. sudo apt-get install python3-venv
-#. sudo apt-get -y install postgresql postgresql-contrib
 #. sudo apt-get -y install nginx
 #. sudo apt-get -y install supervisor
 #. sudo apt install redis-server
+#. sudo apt install python3-pip
 #. sudo add-apt-repository ppa:jonathonf/ffmpeg-4
 #. sudo apt-get update
 #. sudo apt-get install ffmpeg
 #. source venv/bin/activate(or install without env)
-#. pip install django
-#. pip install -r requirements.txt
 #. git clone https://github.com/UNFPAInnovation/SafepalDjangoBackend.git
+#. pip install -r requirements.txt
 
 .. note:: All servers in the Safepal Project use the sellio_aws_instance.pem.
 
@@ -111,6 +110,16 @@ Configure Postgres
     createdb safepaldb --owner safepaluser
     psql -c "ALTER USER safepaluser WITH PASSWORD '123'"
     exit
+
+
+Change password
+
+.. code-block:: console
+
+    su - postgres
+    \password
+    exit
+
 
 
 Configure The Application User
@@ -167,7 +176,7 @@ Test if the server is running by running
 Configure gunicorn
 ----------------------
 
-Add these to `bin/activate` file. Do this for production and test
+Add these to ``bin/activate`` file. Do this for production and test
 
 .. code-block:: console
 
@@ -190,7 +199,7 @@ Install gunicorn
     pip install gunicorn
 
 
-Add the code `vim home/safepal/bin/gunicorn_start`
+Add the code ``vim home/safepal/bin/gunicorn_start``
 
 .. code-block:: console
     
@@ -323,7 +332,7 @@ Add service to run gunicorn and reddis
 Add static files and collect static
 -------------------------------------
 
-Add these lines to the `/home/ubuntu/SafepalDjangoBackend/SafepalDjangoBackend/settings.py`
+Add these lines to the ``/home/ubuntu/SafepalDjangoBackend/SafepalDjangoBackend/settings.py``
 
 .. code-block:: python
 
@@ -444,7 +453,7 @@ Update of code and server
     sudo supervisorctl restart safepal-program
 
 
-OR run the script `deploy.sh`
+OR run the script ``deploy.sh``
 
 .. code-block:: console
 

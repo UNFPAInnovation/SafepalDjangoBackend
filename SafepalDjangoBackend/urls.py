@@ -6,13 +6,14 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
-from app.views import VideosView, ArticlesView, OrganizationView, DistrictView, QuizView, QuestionView, FAQView, FAQRatingView
+from app.views import CurrentLocationView, VideosView, ArticlesView, OrganizationView, DistrictView, QuizView, QuestionView, FAQView, FAQRatingView ,CSOUploadView
 from django.conf.urls.static import static
 from SafepalDjangoBackend import settings
 from django.urls import path, re_path, include
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
+
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -37,6 +38,8 @@ urlpatterns = [
     path(r'api/v1/videos', VideosView.as_view(), name='video'),
     path(r'api/v1/articles', ArticlesView.as_view(), name='article'),
     path(r'api/v1/organizations', OrganizationView.as_view(), name='organization'),
+    path(r'api/v1/extractor',CSOUploadView.as_view(), name='organization-upload-excel'),
+    path(r'api/v1/currentLocation',CurrentLocationView.as_view(), name='organization-near'),
     path(r'api/v1/districts', DistrictView.as_view(), name='district'),
     path(r'api/v1/quizzes', QuizView.as_view(), name='quiz'),
     path(r'api/v1/questions', QuestionView.as_view(), name='question'),

@@ -35,7 +35,7 @@ SECRET_KEY = env('SECRET_KEY')
 # DEBUG = environ.get('DEBUG', False) == 'True'
 DEBUG = env('DEBUG', default=True)
 
-ALLOWED_HOSTS = ['154.72.194.219', '0.0.0.0', '127.0.0.1', 'localhost', 'webdashboard.safepal.co', 'www.webdashboard.safepal.co', 'testwebdashboard.safepal.co']
+ALLOWED_HOSTS = ['35.198.98.106', '154.72.194.219', '54.186.60.108', '0.0.0.0', '127.0.0.1', 'localhost', 'webdashboard.safepal.co', 'www.webdashboard.safepal.co', 'testwebdashboard.safepal.co']
 # USE_X_FORWARDED_HOST = True
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # SECURE_SSL_REDIRECT = True
@@ -140,15 +140,21 @@ SWAGGER_SETTINGS = {
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST'),
-        'PORT': '5432'
+    'test': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': env('DB_NAME'),
+    #     'USER': env('DB_USER'),
+    #     'PASSWORD': env('DB_PASSWORD'),
+    #     'HOST': env('DB_HOST'),
+    #     'PORT': '5432'
+    # },
 }
+DATABASES['default'] = DATABASES[os.environ.get('DATABASE_TYPE', default='test')]
+
 
 
 
@@ -197,3 +203,7 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 STATIC_URL = '/static/'
 MEDIA_URL = '/content/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'content/')
+
+# lookup files for static files
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SHEET_FILES_FOLDER = os.path.join(BASE_DIR, 'sheets/')
