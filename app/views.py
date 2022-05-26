@@ -2,7 +2,7 @@
 from django.forms import DecimalField
 from django.http import HttpResponse
 from django.shortcuts import render
-from requests import Response
+from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView
 from app.models import Video, Article, Organization, District, Quiz, Question, FAQ, FAQRating
 from app.serializers import VideoSerializer, ArticleSerializer, OrganizationSerializer, DistrictSerializer, \
@@ -11,8 +11,8 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from SafepalDjangoBackend.settings import SHEET_FILES_FOLDER
 from .extractor import  extract_excel_data
 from geopy.distance import geodesic
-from django.db.models import F,Value,ExpressionWrapper
-from rest_framework.renderers import  JSONRenderer
+from rest_framework.renderers import JSONRenderer
+from rest_framework import status
 
 class VideosView(ListCreateAPIView):
     """
@@ -103,7 +103,6 @@ class CurrentLocationView(ListCreateAPIView):
         long = coordinates["lng"]
         coords_1=(lat, long)
         queryset = Organization.objects.all().values('facility_name','phone_number', 'latitude','longitude')
-        
         orgunits=[]
         for cso in queryset:
             lat = cso["latitude"]
@@ -116,7 +115,8 @@ class CurrentLocationView(ListCreateAPIView):
                 "distance":distance
             })
         newlist = sorted(orgunits,key=lambda d: d['distance'])  
-        return JSONRenderer().render({"org_units":newlist[:10]})
+        org_units = newlist[:10]
+        return Response({"org_units":org_units}, status=status.HTTP_200_OK)
 
 
 
